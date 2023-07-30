@@ -44,6 +44,7 @@ authRouter.post("/api/signup", async (req, res) => {
 // Exercise
 authRouter.post("/api/signin", async (req, res) => {
   try {
+    // extract the email and password from the request body by using the destructuring assignment
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
@@ -68,9 +69,12 @@ authRouter.post("/tokenIsValid", async (req, res)=>{
   try {
     // first get the token
     const token = req.header('x-auth-token');
+    // confirm whether there is a token
     if(!token) return res.json(false);
-    jwt.verify(token, 'passwordKey');
+    // verify the token . See whether the token is valid or not.
+    const verified = jwt.verify(token, 'passwordKey');
     if(!verified) return res.json(false);
+    // check if the user exists or not. I'll be checking the user by id.
     const user  = await User.findById(verified.id);
     if(!user) return res.json(false);
     res.json(true);
@@ -79,4 +83,13 @@ authRouter.post("/tokenIsValid", async (req, res)=>{
   }
 });
 
+
+// get user data
+// pass two parameters here, a '/' and a middleware(the middleware allows one to access this route if they
+// are authorised)
+authRouter.get('/', auth, async(req, res) => {
+  const user = await User.findById(req.user);
+
+  res.json({...user._doc, token: req.token});
+}) 
 module.exports = authRouter;
