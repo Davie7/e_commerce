@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/common/widgets/bottom_bar.dart';
 import 'package:e_commerce_app/constants/global_variables.dart';
 import 'package:e_commerce_app/features/auth/screens/auth_screen.dart';
 import 'package:e_commerce_app/features/auth/services/auth_service.dart';
@@ -29,7 +30,9 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    authService.getUserData(context);
   }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -48,6 +51,8 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
         onGenerateRoute: (settings) => generateRoute(settings),
-        home: const AuthScreen());
+        home: Provider.of<UserProvider>(context).user.token.isNotEmpty
+            ? const BottomBar()
+            : const AuthScreen());
   }
 }

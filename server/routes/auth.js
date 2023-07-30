@@ -2,6 +2,7 @@ const express = require("express");
 const User = require("../models/user");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const auth = require("../middlewares/auth");
 
 // Create a new Express Router instance
 const authRouter = express.Router();
@@ -46,7 +47,8 @@ authRouter.post("/api/signin", async (req, res) => {
   try {
     // extract the email and password from the request body by using the destructuring assignment
     const { email, password } = req.body;
-
+    
+    // search for the user in the database i.e by finding the email that matches the email from the req.body
     const user = await User.findOne({ email });
     if (!user) {
       return res
@@ -57,6 +59,9 @@ authRouter.post("/api/signin", async (req, res) => {
     if (!isMatch) {
       return res.status(400).json({ msg: "Incorrect password" });
     }
+
+    // generate a JSON WEB TOKEN
+    // the token payload includes the user id and is signed using the passwordKey as the secret
     const token = jwt.sign({id: user._id}, "passwordKey");
     res.json({token, ...user._doc});
   } catch (e) {
@@ -87,7 +92,7 @@ authRouter.post("/tokenIsValid", async (req, res)=>{
 // get user data
 // pass two parameters here, a '/' and a middleware(the middleware allows one to access this route if they
 // are authorised)
-authRouter.get('/', auth, async(req, res) => {
+authRouter.get("/", auth, async(req, res) => {
   const user = await User.findById(req.user);
 
   res.json({...user._doc, token: req.token});
