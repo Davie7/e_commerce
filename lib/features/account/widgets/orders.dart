@@ -1,4 +1,5 @@
 import 'package:e_commerce_app/constants/global_variables.dart';
+import 'package:e_commerce_app/features/account/widgets/single_product.dart';
 import 'package:flutter/material.dart';
 
 class Orders extends StatefulWidget {
@@ -11,12 +12,10 @@ class Orders extends StatefulWidget {
 class _OrdersState extends State<Orders> {
   //temporary list
   List list = [
-    {
-      'https://images.unsplash.com/photo-1689711596068-8ddb46cc0b83?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDEwfE04alZiTGJUUndzfHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=500&q=60'
-      'https://images.unsplash.com/photo-1689711596068-8ddb46cc0b83?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDEwfE04alZiTGJUUndzfHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=500&q=60'
-      'https://images.unsplash.com/photo-1689711596068-8ddb46cc0b83?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDEwfE04alZiTGJUUndzfHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=500&q=60'
-      'https://images.unsplash.com/photo-1689711596068-8ddb46cc0b83?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDEwfE04alZiTGJUUndzfHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=500&q=60'
-    }
+    'https://images.unsplash.com/photo-1689711596068-8ddb46cc0b83?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDEwfE04alZiTGJUUndzfHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=500&q=60',
+    'https://images.unsplash.com/photo-1689711596068-8ddb46cc0b83?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDEwfE04alZiTGJUUndzfHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=500&q=60',
+    'https://images.unsplash.com/photo-1689711596068-8ddb46cc0b83?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDEwfE04alZiTGJUUndzfHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=500&q=60',
+    'https://images.unsplash.com/photo-1689711596068-8ddb46cc0b83?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDEwfE04alZiTGJUUndzfHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=500&q=60',
   ];
   @override
   Widget build(BuildContext context) {
@@ -59,9 +58,12 @@ class _OrdersState extends State<Orders> {
             right: 0,
           ),
           child: ListView.builder(
+            scrollDirection: Axis.horizontal,
             itemCount: list.length,
             itemBuilder: (BuildContext context, int index) {
-              return;
+              return SingleProduct(
+                image: list[index],
+              );
             },
           ),
         ),
