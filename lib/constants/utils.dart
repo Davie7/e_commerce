@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 void showSnackBar(BuildContext context, String text) {
@@ -10,11 +11,23 @@ void showSnackBar(BuildContext context, String text) {
   );
 }
 
-pickImages() async {
+Future<List<File>>pickImages() async {
   List<File> images = [];
-  try {} catch (e) {
+  try {
+    var files = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+      allowMultiple: true,
+    );
+    if(files != null && files.files.isNotEmpty){
+      for(int i = 0; i<files.files.length; i++){
+        images.add(File(files.files[i].path!));
+      }
+    }
+  } catch (e) {
     debugPrint(
       e.toString(),
     );
   }
+
+  return images;
 }
