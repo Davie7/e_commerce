@@ -20,6 +20,7 @@ Future<List<File>>pickImages() async {
     );
     if(files != null && files.files.isNotEmpty){
       for(int i = 0; i<files.files.length; i++){
+        // Convert the selected file paths into File objects and add them to the images list.
         images.add(File(files.files[i].path!));
       }
     }
