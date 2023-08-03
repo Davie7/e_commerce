@@ -75,7 +75,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
         preferredSize: const Size.fromHeight(50),
         child: AppBar(
           flexibleSpace: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: GlobalVariables.appBarGradient,
             ),
           ),
@@ -94,7 +94,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: Column(
               children: [
-                Gap(10),
+                const Gap(10),
                 images.isNotEmpty
                     ? CarouselSlider(
                         items: images.map(
@@ -159,12 +159,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 ),
                 const Gap(10),
                 CustomTextField(
-                  controller: productNameController,
+                  controller: priceController,
                   hintText: 'Price',
                 ),
                 const Gap(10),
                 CustomTextField(
-                  controller: productNameController,
+                  controller:quantityController,
                   hintText: 'Quantity',
                 ),
                 const Gap(10),
@@ -188,7 +188,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 const Gap(10),
                 CustomButton(
                   text: 'Sell',
-                  onPressed: () {},
+                  onPressed: sellProduct,
                 ),
               ],
             ),

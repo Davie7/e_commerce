@@ -3,7 +3,7 @@ const adminRouter = express.Router();
 const admin = require("../middlewares/admin");
 
 // Add product
-admintRouter.post("/admin/add-product", admin, async (req, res) => {
+adminRouter.post("/admin/add-product", admin, async (req, res) => {
   try {
     const {name, description, images, quantity, price, category } = req.body
     let product = new Product({
@@ -20,3 +20,5 @@ admintRouter.post("/admin/add-product", admin, async (req, res) => {
     res.status(500).json({error: e.message});
   }
 });
+
+module.exports = adminRouter;
