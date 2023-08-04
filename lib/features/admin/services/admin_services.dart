@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 import '../../../models/product.dart';
 
 class AdminService {
-  void sellProduct({
+  void      sellProduct({
     required BuildContext context,
     required String name,
     required String description,
