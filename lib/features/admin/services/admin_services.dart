@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 import '../../../models/product.dart';
 
 class AdminService {
-  void      sellProduct({
+  void sellProduct({
     required BuildContext context,
     required String name,
     required String description,
@@ -29,12 +29,8 @@ class AdminService {
 
       for (int i = 0; i < images.length; i++) {
         CloudinaryResponse res = await cloudinary.uploadFile(
-          CloudinaryFile.fromFile(
-            images[i].path,
-            folder: name,
-          ),
+          CloudinaryFile.fromFile(images[i].path, folder: name),
         );
-        // extract the image url from the cloudinary response and add it to the imageUrls list
         imageUrls.add(res.secureUrl);
       }
 
@@ -60,7 +56,7 @@ class AdminService {
         response: res,
         context: context,
         onSuccess: () {
-          showSnackBar(context, "Product added successfully");
+          showSnackBar(context, 'Product Added Successfully!');
           Navigator.pop(context);
         },
       );
